@@ -1,0 +1,13 @@
+# dependencies
+/node_modules
+
+# build
+/dist
+
+# etc
+.DS_Store
+.env.local
+.idea
+
+#generated manifest
+public/manifest.json
