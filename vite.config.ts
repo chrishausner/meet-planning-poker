@@ -1,34 +1,62 @@
-/// <reference types="vitest" />
-/// <reference types="vite/client" />
+import { crx } from "@crxjs/vite-plugin";
+import { resolve } from "path";
+import { defineConfig } from "vite";
+import solidPlugin from "vite-plugin-solid";
+import manifest from "./src/manifest";
 
-import { defineConfig } from 'vite';
-import solidPlugin from 'vite-plugin-solid';
-// import devtools from 'solid-devtools/vite';
+const root = resolve(__dirname, "src");
+const pagesDir = resolve(root, "pages");
+const assetsDir = resolve(root, "assets");
+const outDir = resolve(__dirname, "dist");
+const publicDir = resolve(__dirname, "public");
+
+const isDev = process.env.__DEV__ === "true";
+
+const viteManifestHackIssue846: { name: string; renderCrxManifest(_manifest, bundle): void } = {
+  name: 'manifestHackIssue846',
+  renderCrxManifest(_manifest, bundle) {
+    bundle['manifest.json'] = bundle['.vite/manifest.json']
+    bundle['manifest.json'].fileName = 'manifest.json'
+    delete bundle['.vite/manifest.json']
+  },
+}
 
 export default defineConfig({
-  plugins: [
-    /* 
-    Uncomment the following line to enable solid-devtools.
-    For more info see https://github.com/thetarnav/solid-devtools/tree/main/packages/extension#readme
-    */
-    // devtools(),
-    solidPlugin(),
-  ],
-  server: {
-    port: 3000,
-  },
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: ['node_modules/@testing-library/jest-dom/vitest'],
-    // if you have few tests, try commenting this
-    // out to improve performance:
-    isolate: false,
-  },
-  build: {
-    target: 'esnext',
-  },
+  plugins: [solidPlugin(),viteManifestHackIssue846, crx({ manifest })],
   resolve: {
-    conditions: ['development', 'browser'],
+    alias: {
+      "@src": root,
+      "@assets": assetsDir,
+      "@pages": pagesDir,
+    },
+  },
+  publicDir,
+  build: {
+    outDir,
+    sourcemap: isDev,
+    rollupOptions: {
+      // input: {
+      //   devtools: resolve(pagesDir, "devtools", "index.html"),
+      //   panel: resolve(pagesDir, "panel", "index.html"),
+      //   content: resolve(pagesDir, "content", "index.ts"),
+      //   background: resolve(pagesDir, "background", "index.ts"),
+      //   contentStyle: resolve(pagesDir, "content", "style.scss"),
+      //   popup: resolve(pagesDir, "popup", "index.html"),
+      //   newtab: resolve(pagesDir, "newtab", "index.html"),
+      //   options: resolve(pagesDir, "options", "index.html"),
+      // },
+      // output: {
+      //   entryFileNames: "src/pages/[name]/index.js",
+      //   chunkFileNames: isDev
+      //     ? "assets/js/[name].js"
+      //     : "assets/js/[name].[hash].js",
+      //   assetFileNames: (assetInfo) => {
+      //     const { dir, name: _name } = path.parse(assetInfo.name);
+      //     // const assetFolder = getLastElement(dir.split("/"));
+      //     // const name = assetFolder + firstUpperCase(_name);
+      //     return `assets/[ext]/${name}.chunk.[ext]`;
+      //   },
+      // },
+    },
   },
 });
