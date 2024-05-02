@@ -10,7 +10,6 @@ chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
     const url = new URL(tab.url);
     // Enables the side panel on meet.google.com
     if (url.origin.includes(GOOGLE_MEET_ORIGIN)) {
-        console.log(url.origin)
         await chrome.sidePanel.setOptions({
             tabId,
             path: 'src/pages/sidepanel/sidepanel.html',

@@ -1,13 +1,13 @@
 import {render} from "solid-js/web";
-
+import '../../index.css';
 
 function App() {
     return (
         // @ts-ignore
-        <div>
-            <h1>Planning Poker</h1>
-            <p>This shit works</p>
+        <div class="flex-col w-full font-mono bg-amber-200 h-10">
+            <h1 class="text-3xl text-center">Planning Poker</h1>
         </div>
+
     );
 }
 

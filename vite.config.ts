@@ -4,6 +4,7 @@ import { defineConfig } from "vite";
 import solidPlugin from "vite-plugin-solid";
 import manifest from "./src/manifest";
 import * as path from "node:path";
+import tailwindcss from "tailwindcss";
 
 const root = resolve(__dirname, "src");
 const pagesDir = resolve(root, "pages");
@@ -22,6 +23,8 @@ const viteManifestHackIssue846: { name: string; renderCrxManifest(_manifest, bun
   },
 }
 
+
+
 export default defineConfig({
   plugins: [solidPlugin(),viteManifestHackIssue846, crx({ manifest })],
   resolve: {
@@ -29,12 +32,24 @@ export default defineConfig({
       "@src": root,
       "@assets": assetsDir,
       "@pages": pagesDir,
+      "tailwind.config.js": resolve(__dirname, "tailwind.config.js"),
+    },
+  },
+  optimizeDeps: {
+    include: [
+      path.resolve(__dirname, 'tailwind.config.js'),
+    ],
+  },
+  css: {
+    postcss: {
+      plugins: [tailwindcss()],
     },
   },
   publicDir,
   build: {
     outDir,
     sourcemap: isDev,
+    cssCodeSplit: false,
     rollupOptions: {
       input: {
         // devtools: resolve(pagesDir, "devtools", "index.html"),
@@ -56,7 +71,7 @@ export default defineConfig({
           const { dir, name: _name } = path.parse(assetInfo.name);
           // const assetFolder = getLastElement(dir.split("/"));
           // const name = assetFolder + firstUpperCase(_name);
-          return `assets/[ext]/${name}.chunk.[ext]`;
+          return `assets/[ext]/${_name}.chunk.[ext]`;
         },
       },
     },
