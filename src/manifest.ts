@@ -14,9 +14,10 @@ const manifest = defineManifest(async () => ({
     version: `${major}.${minor}.${patch}.${label}`,
     description: packageJson.description,
     // options_page: "src/pages/options/index.html",
-    // background: { service_worker: "src/pages/background/index.ts" },
+    background: { service_worker: "src/pages/sidepanel/service-worker.ts" },
     action: {
-        default_popup: "src/pages/popup/index.html",
+        default_title: "Click to open panel"
+        // default_popup: "src/pages/popup/index.html",
         // default_icon: "icons/34x34.png",
     },
     // chrome_url_overrides: {
@@ -25,12 +26,19 @@ const manifest = defineManifest(async () => ({
     // icons: {
     //     "128": "icons/128x128.png",
     // },
-    content_scripts: [
-        {
-            matches: ["http://*/*", "https://*/*", "<all_urls>"],
-            js: ["src/pages/content/index.tsx"],
-        },
+    // content_scripts: [
+    //     {
+    //         matches: [ "*://meet.google.com/*"],
+    //         js: ["src/pages/content/index.tsx"],
+    //     },
+    // ],
+    permissions: [
+        "sidePanel",
+        "tabs"
     ],
+    // side_panel: {
+    //   default_path: "src/test.html"
+    // }
     // devtools_page: "src/pages/devtools/index.html",
     // web_accessible_resources: [
     //     {

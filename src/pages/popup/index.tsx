@@ -3,7 +3,7 @@ import { render } from "solid-js/web";
 const Popup = () => {
     return (
         <div>
-            POPUP
+            Don't click this
         </div>
     );
 };
