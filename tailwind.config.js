@@ -1,4 +1,6 @@
-/** @type {import('tailwindcss').Config} */
+/** @type {DefaultColors} */
+const colors = require('tailwindcss/colors');
+
 module.exports = {
   purge: ['./src/pages/**/*.{js,jsx,ts,tsx}'],
   content: [
@@ -6,6 +8,7 @@ module.exports = {
   ],
   theme: {
     colors: {
+      ...colors,
       blue: {
         light: '#D2E3FC',
         DEFAULT: '#4285F4',
@@ -32,7 +35,11 @@ module.exports = {
         dark: '#202124',
       }
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        'inconsolata': ['Inconsolata', 'monospace'],
+      }
+    },
   },
   plugins: [],
 }

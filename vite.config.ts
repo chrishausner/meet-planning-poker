@@ -5,7 +5,6 @@ import solidPlugin from "vite-plugin-solid";
 import manifest from "./src/manifest";
 import * as path from "node:path";
 import tailwindcss from "tailwindcss";
-import hotReloadExtension from "hot-reload-extension-vite";
 
 const root = resolve(__dirname, "src");
 const pagesDir = resolve(root, "pages");
@@ -30,12 +29,6 @@ export default defineConfig({
     solidPlugin(),
     viteManifestHackIssue846,
     crx({ manifest }),
-    hotReloadExtension(
-      {
-        log: true,
-        backgroundPath: resolve(pagesDir, "sidepanel", "index.html"),
-      }
-    )
   ],
   resolve: {
     alias: {
