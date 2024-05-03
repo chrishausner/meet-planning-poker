@@ -1840,6 +1840,13 @@ hasown@^2.0.0:
   dependencies:
     function-bind "^1.1.2"
 
+hot-reload-extension-vite@^1.0.13:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/hot-reload-extension-vite/-/hot-reload-extension-vite-1.0.13.tgz#e52e832a24c8093bb3c72455a12576958307f38c"
+  integrity sha512-bX9Bcvhay+xwVinLb/NdoA85NDAixbZ4xcmOyibvHjDjIzw1qllEGfN4LnoAi1jSfH0Mv5Sf5WrbplJS6IaMmg==
+  dependencies:
+    ws "^8.14.2"
+
 html-encoding-sniffer@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/html-encoding-sniffer/-/html-encoding-sniffer-4.0.0.tgz#696df529a7cfd82446369dc5193e590a3735b448"
@@ -3326,6 +3333,11 @@ wrap-ansi@^8.1.0:
     ansi-styles "^6.1.0"
     string-width "^5.0.1"
     strip-ansi "^7.0.1"
+
+ws@^8.14.2:
+  version "8.17.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.17.0.tgz#d145d18eca2ed25aaf791a183903f7be5e295fea"
+  integrity sha512-uJq6108EgZMAl20KagGkzCKfMEjxmKvZHG7Tlq0Z6nOky7YF7aq4mOx6xK8TJ/i1LeK4Qus7INktacctDgY8Ow==
 
 ws@^8.16.0:
   version "8.16.0"

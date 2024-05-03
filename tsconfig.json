@@ -32,7 +32,7 @@
       ],
       "@pages/*": [
         "src/pages/*"
-      ]
+      ],
     }
   },
   "include": [

@@ -5,6 +5,7 @@ import solidPlugin from "vite-plugin-solid";
 import manifest from "./src/manifest";
 import * as path from "node:path";
 import tailwindcss from "tailwindcss";
+import hotReloadExtension from "hot-reload-extension-vite";
 
 const root = resolve(__dirname, "src");
 const pagesDir = resolve(root, "pages");
@@ -15,18 +16,27 @@ const publicDir = resolve(__dirname, "public");
 const isDev = process.env.__DEV__ === "true";
 
 const viteManifestHackIssue846: { name: string; renderCrxManifest(_manifest, bundle): void } = {
-  name: 'manifestHackIssue846',
+  name: "manifestHackIssue846",
   renderCrxManifest(_manifest, bundle) {
-    bundle['manifest.json'] = bundle['.vite/manifest.json']
-    bundle['manifest.json'].fileName = 'manifest.json'
-    delete bundle['.vite/manifest.json']
+    bundle["manifest.json"] = bundle[".vite/manifest.json"];
+    bundle["manifest.json"].fileName = "manifest.json";
+    delete bundle[".vite/manifest.json"];
   },
-}
-
+};
 
 
 export default defineConfig({
-  plugins: [solidPlugin(),viteManifestHackIssue846, crx({ manifest })],
+  plugins: [
+    solidPlugin(),
+    viteManifestHackIssue846,
+    crx({ manifest }),
+    hotReloadExtension(
+      {
+        log: true,
+        backgroundPath: resolve(pagesDir, "sidepanel", "index.html"),
+      }
+    )
+  ],
   resolve: {
     alias: {
       "@src": root,
@@ -37,7 +47,7 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: [
-      path.resolve(__dirname, 'tailwind.config.js'),
+      path.resolve(__dirname, "tailwind.config.js"),
     ],
   },
   css: {
