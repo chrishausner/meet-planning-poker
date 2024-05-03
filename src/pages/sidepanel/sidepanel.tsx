@@ -4,8 +4,8 @@ import {Card} from "./components/card";
 
 function App() {
     return (
-      <div class="flex-col  w-full font-mono bg-amber-200 h-screen">
-        <h1 class="text-3xl text-center">Planning Poker</h1>
+      <div class="flex-col  w-full font-mono h-screen">
+        <h1 class="text-3xl text-center p-4">Planning Poker</h1>
         <div class="flex flex-col w-full p-4 absolute bottom-0 gap-8">
           <div class="flex flex-wrap gap-4 w-full justify-center">
             <Card value={1} />
@@ -15,7 +15,7 @@ function App() {
             <Card value={8} />
             <Card value={13} />
           </div>
-          <button class="bg-green-light hover:bg-green text-xl rounded-lg w-full p-4 shadow-md">
+          <button class="bg-green-light hover:ring hover:ring-green active:bg-green text-xl rounded-lg w-full p-4 shadow-md">
             Reveal Estimations
           </button>
         </div>

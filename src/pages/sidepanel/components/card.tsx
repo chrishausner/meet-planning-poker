@@ -6,7 +6,7 @@ export interface CardProps {
 
 export const Card = (props: CardProps) => {
   return (
-    <button class="flex w-20 h-32 bg-blue-light hover:bg-blue-dark active:bg-blue focus:ring-blue-dark focus:bg-blue rounded-lg justify-center items-center shadow-md border-b-blue-dark">
+    <button class="flex w-20 h-32 bg-blue-light hover:ring hover:ring-blue-dark active:bg-blue focus:ring-blue-dark focus:bg-blue rounded-lg justify-center items-center shadow-md border-b-blue-dark">
       <span class="text-2xl">{props.value}</span>
     </button>
   )
