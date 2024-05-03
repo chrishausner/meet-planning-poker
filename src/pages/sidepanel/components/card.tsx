@@ -1,12 +1,15 @@
 import '../../../index.css'
+import { Setter } from "solid-js";
 
 export interface CardProps {
   value: number
+  setEstimation: Setter<number>
 }
 
 export const Card = (props: CardProps) => {
   return (
-    <button class="flex w-20 h-32 bg-blue-light hover:ring hover:ring-blue-dark active:bg-blue focus:ring-blue-dark focus:bg-blue rounded-lg justify-center items-center shadow-md border-b-blue-dark">
+    <button onClick={() => props.setEstimation(props.value)}
+            class="flex w-20 h-32 bg-blue-light hover:ring hover:ring-blue-dark active:bg-blue focus:ring-blue-dark focus:bg-blue rounded-lg justify-center items-center shadow-md border-b-blue-dark">
       <span class="text-2xl">{props.value}</span>
     </button>
   )

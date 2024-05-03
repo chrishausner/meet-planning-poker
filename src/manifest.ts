@@ -14,7 +14,7 @@ const manifest = defineManifest(async () => ({
     version: `${major}.${minor}.${patch}.${label}`,
     description: packageJson.description,
     // options_page: "src/pages/options/index.html",
-    background: { service_worker: "src/pages/sidepanel/service-worker.ts" },
+    background: { service_worker: "src/service-worker.ts" },
     action: {
         default_title: "Click to open panel"
         // default_popup: "src/pages/popup/index.html",
@@ -26,12 +26,12 @@ const manifest = defineManifest(async () => ({
     // icons: {
     //     "128": "icons/128x128.png",
     // },
-    // content_scripts: [
-    //     {
-    //         matches: [ "*://meet.google.com/*"],
-    //         js: ["src/pages/content/index.tsx"],
-    //     },
-    // ],
+    content_scripts: [
+        {
+            matches: [ "*://meet.google.com/*"],
+            js: ["src/pages/content/content.tsx"],
+        },
+    ],
     permissions: [
         "sidePanel",
         "tabs"
