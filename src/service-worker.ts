@@ -15,7 +15,6 @@ chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
             path: 'src/pages/sidepanel/sidepanel.html',
             enabled: true
         });
-        // chrome.tabs.sendMessage(tabId, "REVEAL_ESTIMATIONS").then(response => {console.log(response)});
     } else {
         // Disables the side panel on all other sites
         await chrome.sidePanel.setOptions({

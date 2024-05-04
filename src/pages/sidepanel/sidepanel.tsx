@@ -1,43 +1,40 @@
-import {render} from "solid-js/web";
+import { render } from "solid-js/web";
 import { createEffect, createSignal } from "solid-js";
 import '../../index.css';
-import {Card} from "./components/card";
+import { Card } from "./components/card";
 import { Alert } from "@pages/sidepanel/components/alert";
+
+const sendMessageToContent = (data: { type: string; value?: number | string; }): any => {
+  chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+    const tab = tabs[0];
+    chrome.tabs.sendMessage(tab.id, data);
+  });
+}
 
 function App() {
     const [estimation, setEstimation] = createSignal(0);
     const [error, setError] = createSignal(false);
 
     createEffect(() => {
-        console.log(estimation());
-        const data = {
-          type: "ESTIMATION",
-          value: estimation()
+        if (estimation() > 0) {
+          sendMessageToContent({type: "ESTIMATION"});
         }
     })
 
     const handleSubmit = () => {
       const data = {
         type: "REVEAL_ESTIMATIONS",
-        value: estimation()
+        value: '--------Estimations--------'
       }
-      sendMessage(data)
-      setEstimation(0);
+      sendMessageToContent(data)
     }
 
-    const sendMessage = (data: { type: string; value: number; }): any => {
-      chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-        const tab = tabs[0];
-        chrome.tabs.sendMessage(tab.id, data).then(
-          response => {
-            if (response && response.value === "error") {
-              console.log("Error sending message");
-              setError(true);
-            }
-          }
-        );
-      })
-    }
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+      if(request.type === "REVEAL_TRIGGERED" && estimation() > 0) {
+        sendResponse({value: estimation()});
+        setEstimation(0);
+      }
+    });
 
     return (
       <div class="flex-col w-full h-screen">
