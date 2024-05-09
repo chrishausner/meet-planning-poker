@@ -2,8 +2,8 @@ import '../../../index.css'
 import { Setter } from "solid-js";
 
 export interface CardProps {
-  value: number
-  setEstimation: Setter<number>
+  value: string,
+  setEstimation: Setter<string>
 }
 
 export const Card = (props: CardProps) => {
