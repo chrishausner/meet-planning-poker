@@ -1,0 +1,6 @@
+export const REVEAL_COMMAND = "--------Estimations--------";
+export const VALUE_CHOSEN_MESSAGE = "👍";
+
+export const REVEAL_ESTIMATIONS_MESSAGE = "REVEAL_ESTIMATIONS";
+export const ESTIMATION_CHOSEN_MESSAGE = "ESTIMATION_CHOSEN";
+export const REVEAL_TRIGGERED_MESSAGE = "REVEAL_TRIGGERED";

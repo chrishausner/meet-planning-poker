@@ -1,0 +1,1 @@
+export type RequestType = "REVEAL_ESTIMATIONS" | "ESTIMATION_CHOSEN" | "REVEAL_TRIGGERED";

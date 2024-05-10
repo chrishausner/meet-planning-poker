@@ -3,6 +3,7 @@ import { createEffect, createSignal } from "solid-js";
 import '../../index.css';
 import { Card } from "./components/card";
 import { SelectBox } from "@pages/sidepanel/components/selectBox";
+import { Alert } from "@pages/sidepanel/components/alert";
 
 const sendMessageToContent = (data: { type: string; value?: number | string; }): any => {
   chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
@@ -13,11 +14,11 @@ const sendMessageToContent = (data: { type: string; value?: number | string; }):
 
 function App() {
     const [estimation , setEstimation] = createSignal(undefined);
-    // const [error, setError] = createSignal(false);
+    const [error, setError] = createSignal(false);
     const [estimationValues, setEstimationValues] = createSignal(['?', '1', '2', '3', '5', '8', '13']);
 
     createEffect(() => {
-        if (estimation() === undefined) {
+        if (estimation() !== undefined) {
           sendMessageToContent({type: "ESTIMATION"});
         }
     })
@@ -31,9 +32,18 @@ function App() {
     }
 
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-      if(request.type === "REVEAL_TRIGGERED" && estimation() > 0) {
+      console.log(request.type);
+      if(request.type === "REVEAL_TRIGGERED" && estimation() !== undefined) {
+        console.log('reveal triggered');
         sendResponse({value: estimation()});
         setEstimation(undefined);
+      } else if (request.type === "ERROR") {
+        console.log('error');
+        setError(true);
+        sendResponse(true);
+        setTimeout(() => {
+          setError(false);
+        }, 10000);
       }
     });
 
@@ -42,6 +52,7 @@ function App() {
         <h1 class="text-3xl text-center p-4">Planning Poker</h1>
         <SelectBox setEstimationValues={setEstimationValues}/>
         <div class="flex flex-col w-full p-4 absolute bottom-0 gap-8">
+          {error() && <Alert badge={'Error'} message={'Chat window not found'} setError={setError}/>}
           <div class="flex flex-wrap gap-4 w-full justify-center">
             {estimationValues().map((value) => (
               <Card value={value} setEstimation={setEstimation}/>

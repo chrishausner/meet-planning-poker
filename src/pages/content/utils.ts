@@ -1,20 +1,44 @@
 export const getTextInputField = () => {
-  return document.querySelector('[aria-label="Nachricht senden"]');
+  try {
+    return document.querySelector('[aria-label="Nachricht senden"]');
+  }
+  catch (error) {
+    sendMessageToPanel({type: 'ERROR'});
+  }
 }
 
 export const getSendMessageButton = () => {
-  return getTextInputField().parentNode.parentNode.parentNode.lastChild.firstChild;
+  try{
+    return getTextInputField().parentNode.parentNode.parentNode.lastChild.firstChild;
+  }
+  catch (error) {
+    sendMessageToPanel({type: 'ERROR'});
+  }
 }
 
 export const getMessageField = () => {
-  return getTextInputField().parentNode.parentNode.parentNode.parentNode.parentNode;
+  try {
+    return getTextInputField().parentNode.parentNode.parentNode.parentNode.parentNode;
+  }
+  catch (error) {
+    // do nothing
+  }
+}
+
+export const sendMessageToPanel = (data: { type: string; value?: number | string; }) => {
+  chrome.runtime.sendMessage(data);
 }
 
 export const writeMessageInChat = (message: string) => {
-  const textInputField: any = getTextInputField();
-  const sendButton: any = getSendMessageButton();
+  try {
+    const textInputField: any = getTextInputField();
+    const sendButton: any = getSendMessageButton();
 
-  textInputField.value = message;
-  textInputField.dispatchEvent(new Event('input', { bubbles: true }));
-  sendButton.click();
+    textInputField.value = message;
+    textInputField.dispatchEvent(new Event('input', { bubbles: true }));
+    sendButton.click();
+  }
+  catch (error) {
+    // do nothing
+  }
 }

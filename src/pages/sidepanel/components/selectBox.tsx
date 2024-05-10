@@ -19,13 +19,15 @@ export const SelectBox = (props: SelectBoxProps) => {
   }
 
   return (
-  <form class="w-full flex justify-center font-inconsolata">
-    <select id="values"
-            onChange={handleChange}
-            class="bg-yellow-light text-center border border-yellow text-gray-900 text-md rounded-full focus:ring-yellow-dark focus:accent-yellow-dark block w-1/2 p-2.5 shadow-md">
-      <option selected value='FIBONACCI'>Fibonacci (1 - 13)</option>
-      <option value='EXTENDED_FIBONACCI'>Fibonacci (1 - 55)</option>
-      <option value='SHIRTS'>Shirt sizes</option>
-    </select>
-  </form>
+    <div class="flex justify-center w-full font-inconsolata">
+      <form class="flex justify-center bg-yellow-light border border-yellow text-gray-900 text-md rounded-full w-1/2 shadow-md">
+          <select id="values"
+                  onChange={handleChange}
+                  class="text-center bg-yellow-light focus:outline-none m-2.5 rounded-full w-full">
+            <option selected value='FIBONACCI'>Fibonacci (1 - 13)</option>
+            <option value='EXTENDED_FIBONACCI'>Fibonacci (1 - 55)</option>
+            <option value='SHIRTS'>Shirt sizes</option>
+          </select>
+      </form>
+    </div>
 )};
