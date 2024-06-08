@@ -19,7 +19,7 @@ export const SelectBox = (props: SelectBoxProps) => {
   }
 
   return (
-    <div class="flex justify-center w-full font-inconsolata">
+    <div class="flex justify-center w-full">
       <form class="flex justify-center bg-yellow-light border border-yellow text-gray-900 text-md rounded-full w-1/2 shadow-md">
           <select id="values"
                   onChange={handleChange}

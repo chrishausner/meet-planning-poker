@@ -22,19 +22,21 @@ const chatWindowObserver = new MutationObserver((mutations) => {
 });
 
 const revealCommandObserver = new MutationObserver((mutations) => {
-  let commandDetected = false;
-  mutations.forEach((mutation) => {
-    const addedNode = mutation.addedNodes;
-    addedNode.forEach((node) => {
-      if (node.textContent.includes("--------Estimations--------") && !commandDetected) {
-        commandDetected = true;
-        chrome.runtime.sendMessage({type: "REVEAL_TRIGGERED"}, (response) => {
-          writeMessageInChat(response.value)
-        });
-      }
-    })
+  let isMessageSent = false;
+  mutations.forEach((mutation, index) => {
+    const commandDetected = Array.prototype.some.call(mutation.addedNodes, (node) => node.textContent.includes("--------Estimations--------"));
+    if (commandDetected && !isMessageSent) {
+      isMessageSent = true;
+      chrome.runtime.sendMessage({type: "REVEAL_TRIGGERED"}, (response) => {
+        try {
+          if (response.value !== null) writeMessageInChat(response.value)
+        } catch (error) {
+          console.log('there was an revealing the estimation value')
+        }
+      });
+    }
   })
-  commandDetected = false;
+  isMessageSent = false;
 });
 
 chatWindowObserver.observe(document.body, config);

@@ -15,23 +15,23 @@ module.exports = {
         dark: '#174EA6',
       },
       red: {
-        light: '#FAD2CF',
+        light: '#F6C3AE',
         DEFAULT: '#EA4335',
         dark: '#A50E0E',
       },
       yellow: {
         light: '#FEEFC3',
-        DEFAULT: '#FBBC04',
-        dark: '#E37400',
+        DEFAULT: '#FDD848',
+        dark: '#F0743E',
       },
       green: {
-        light: '#CEEAD6',
+        light: '#AAD59E',
         DEFAULT: '#34A853',
         dark: '#0D652D',
       },
       gray: {
         light: '#F1F3F4',
-        DEFAULT: '#9AA0A6',
+        DEFAULT: '#9AB2D4',
         dark: '#202124',
       }
     },

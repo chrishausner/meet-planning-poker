@@ -32,18 +32,19 @@ function App() {
     }
 
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-      console.log(request.type);
-      if(request.type === "REVEAL_TRIGGERED" && estimation() !== undefined) {
-        console.log('reveal triggered');
-        sendResponse({value: estimation()});
-        setEstimation(undefined);
+      if(request.type === "REVEAL_TRIGGERED") {
+        if (estimation() !== undefined) {
+          sendResponse({value: estimation()});
+          setEstimation(undefined);
+        } else {
+          sendResponse({value: null})
+        }
       } else if (request.type === "ERROR") {
-        console.log('error');
         setError(true);
         sendResponse(true);
         setTimeout(() => {
           setError(false);
-        }, 10000);
+        }, 5000);
       }
     });
 
