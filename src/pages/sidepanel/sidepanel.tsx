@@ -50,7 +50,6 @@ function App() {
 
     return (
       <div class="flex-col w-full h-screen m-2">
-        <h1 class="text-3xl text-center p-4">Planning Poker</h1>
         <SelectBox setEstimationValues={setEstimationValues}/>
         <div class="flex flex-col w-full p-4 absolute bottom-0 gap-8">
           {error() && <Alert badge={'Error'} message={'Chat window not found'} setError={setError}/>}

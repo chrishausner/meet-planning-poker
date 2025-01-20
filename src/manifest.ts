@@ -23,9 +23,10 @@ const manifest = defineManifest(async () => ({
     // chrome_url_overrides: {
     //     newtab: "src/pages/newtab/index.html",
     // },
-    // icons: {
-    //     "128": "icons/128x128.png",
-    // },
+    icons: {
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png",
+    },
     content_scripts: [
         {
             matches: [ "*://meet.google.com/*"],
@@ -34,7 +35,7 @@ const manifest = defineManifest(async () => ({
     ],
     permissions: [
         "sidePanel",
-        "tabs"
+        "tabs",
     ],
     // side_panel: {
     //   default_path: "src/test.html"
