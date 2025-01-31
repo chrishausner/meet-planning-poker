@@ -31,7 +31,7 @@ const revealCommandObserver = new MutationObserver((mutations) => {
         try {
           if (response.value !== null) writeMessageInChat(response.value)
         } catch (error) {
-          console.log('there was an revealing the estimation value')
+          console.log('ERROR - there was an revealing the estimation value')
         }
       });
     }
