@@ -1,6 +1,6 @@
 export const getTextInputField = () => {
   try {
-    return document.querySelector('[aria-label="Nachricht senden"]');
+    return document.querySelector('[data-panel-container-id=sidePanel2]');
   }
   catch (error) {
     sendMessageToPanel({type: 'ERROR'});
